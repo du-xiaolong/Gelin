@@ -26,14 +26,16 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 class MomentDetailActivity :
     BaseDbActivity<MomentViewModel, ActivityMomentDetailBinding>(R.layout.activity_moment_detail) {
     companion object {
-        fun start(context: Context, moment: Moment) {
+        fun start(context: Context, moment: Moment, name: String?) {
             context.startActivity(Intent(context, MomentDetailActivity::class.java).apply {
                 putExtra("moment", moment)
+                putExtra("name", name)
             })
         }
     }
 
     private val moment by Params<Moment>("moment")
+    private val name by Params<String>("name")
 
     private val videoResource: Moment.Resource
         get() = moment?.resource?.first()!!
@@ -128,7 +130,7 @@ class MomentDetailActivity :
 
         vb.btnShare.setOnClickListener {
             moment?.let {
-                UmengUtil.shareVideoToWechat(this, it.content?.text, "歌林", videoResource.url,videoResource.coverImg)
+                UmengUtil.shareVideoToWechat(this, it.content?.text, "歌林幼儿园-${name.notNull}-${it.dateStr}", videoResource.url,videoResource.coverImg)
             }
 
         }

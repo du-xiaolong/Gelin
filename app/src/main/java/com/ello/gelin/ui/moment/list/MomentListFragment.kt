@@ -33,7 +33,9 @@ class MomentListFragment :
     }
 
     override fun initView() {
+        adapter.name = name
         vb.rvList.addDivider(paddingLeftDp = 15f, paddingRightDp = 15f)
+
         vb.rvList.adapter = adapter.withLoadStateFooter(FooterAdapter {
             adapter.retry()
         })

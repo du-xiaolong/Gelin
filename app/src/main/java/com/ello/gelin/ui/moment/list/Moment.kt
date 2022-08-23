@@ -2,6 +2,9 @@ package com.ello.gelin.ui.moment.list
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.shop.base.ext.notNull
+import com.shop.base.util.formatDateString
+import com.shop.base.util.parseDate
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -13,19 +16,24 @@ data class Moment(
     val id: Int,
     val displayName: String?,
     val content: Content?,
-    val headImage:String?,
-    val className:String?,
-    val typeStr:String?,
+    val headImage: String?,
+    val className: String?,
+    val typeStr: String?,
     val resource: List<Resource>,
     val timeDiff: String?,
-) :Parcelable{
+    val createdAt: String?
+) : Parcelable {
+
+    val dateStr: String
+        get() = createdAt?.parseDate("yyyy-MM-dd HH:mm:ss")?.formatDateString().notNull
+
     val isVideo: Boolean
         get() = resource.isNotEmpty() && !resource.first().compressUrl.isNullOrEmpty()
 
     @Parcelize
     data class Content(
         val text: String?
-    ):Parcelable
+    ) : Parcelable
 
     @Parcelize
     data class Resource(
@@ -38,7 +46,7 @@ data class Moment(
         val coverImgWidth: Int,
         @SerializedName("cover_img_height")
         val coverImgHeight: Int
-    ):Parcelable
+    ) : Parcelable
 }
 
 data class PageWrapper<T>(

@@ -2,14 +2,12 @@ package com.ello.gelin.ui.moment.list
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ello.gelin.R
 import com.ello.gelin.databinding.ItemMomentImageBinding
@@ -29,6 +27,8 @@ import javax.inject.Inject
  */
 class MomentListAdapter @Inject constructor(@ActivityContext val context: Context) :
     PagingDataAdapter<Moment, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+
+    var name: String? = ""
 
     companion object {
         const val PAYLOAD_UPDATE_SINGER_FOLLOW_STATE = "payload_update_singer_follow_state"
@@ -120,7 +120,7 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
             vb.tvDescription.text = "${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
             vb.ivCover.loadImage(url = resource.coverImg)
             listOf(vb.ivCover, vb.ivPlay).forEach {
-                it.clickAnim { MomentDetailActivity.start(context, moment) }
+                it.clickAnim { MomentDetailActivity.start(context, moment, name) }
             }
         }
     }
