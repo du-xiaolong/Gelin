@@ -1,5 +1,6 @@
 package com.ello.gelin.base
 
+import com.ello.gelin.utils.UmengUtil
 import com.shop.base.common.DApp
 import dagger.hilt.android.HiltAndroidApp
 
@@ -9,5 +10,10 @@ import dagger.hilt.android.HiltAndroidApp
  */
 @HiltAndroidApp
 class BaseApp: DApp() {
+
+    override fun init() {
+        super.init()
+        UmengUtil.init(this)
+    }
 
 }

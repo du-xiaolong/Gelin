@@ -59,7 +59,7 @@ class MomentListFragment :
     override fun initData() {
         repeatOnStart {
             val flow =
-                if (name == "dyt") viewModel.dytMomentListFlow else viewModel.dlcMomentListFlow
+                if (name == "杜雨桐") viewModel.dytMomentListFlow else viewModel.dlcMomentListFlow
             flow.collectLatest {
                 adapter.submitData(it)
             }

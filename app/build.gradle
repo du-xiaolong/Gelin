@@ -106,4 +106,15 @@ dependencies {
     implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.3.3-release-jitpack'
     implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64:v8.3.3-release-jitpack'
 
+    implementation 'com.umeng.umsdk:common:9.4.4'// 必选
+    implementation 'com.umeng.umsdk:asms:1.4.1'// 必选
+    implementation 'com.umeng.umsdk:share-core:7.1.7'//分享核心库，必选
+
+    // 第三方平台相关库，可根据需要自行选择
+    implementation 'com.umeng.umsdk:share-wx:7.1.7' //微信完整版
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0'//微信官方依赖库，必选
+
+
+
+
 }

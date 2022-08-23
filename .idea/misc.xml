@@ -4,27 +4,39 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.2435" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/bg_check_photo_small.xml" value="0.1675" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_action_name.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_favorite_border_white_20dp.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2435" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_more_white.xml" value="0.1675" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_more_white_19dp.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_pause_white_24dp.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_play_white_24dp.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_pull_down.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_pull_down_white_30dp.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_refresh_white_24dp.xml" value="0.2435" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_share.xml" value="0.1765" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_share_white_20dp.xml" value="0.2435" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/ic_white_close.xml" value="0.1675" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/sel_pause_white_bg.xml" value="0.2435" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/sel_play_white_bg.xml" value="0.2435" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/drawable/video_click_error_selector.xml" value="0.1765" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/aa.xml" value="0.23177083333333334" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/aaa.xml" value="0.24635416666666668" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/activity_image_preview.xml" value="0.25833333333333336" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/activity_main.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/activity_moment_detail.xml" value="0.3494791666666667" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/activity_moment_detail.xml" value="0.22" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/fragment_moment_list.xml" value="0.29270833333333335" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/ic_white_close.xml" value="0.24635416666666668" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/item_check_album_small.xml" value="0.25833333333333336" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/item_moment_image.xml" value="0.25625" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/item_moment_single_image.xml" value="0.3020833333333333" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/item_moment_video.xml" value="0.33" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/layerlist_video_progress_bg.xml" value="0.2786458333333333" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/sample_video_land.xml" value="0.296875" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/sel_pause_white_bg.xml" value="0.3494791666666667" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/video_land.xml" value="0.16" />
+        <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/video_normal.xml" value="0.296875" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/video_player.xml" value="0.2786458333333333" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/video_player_moment_detail.xml" value="0.3494791666666667" />
         <entry key="..\:/AndroidProjects/Gelin/app/src/main/res/layout/view_load_more.xml" value="0.28020833333333334" />

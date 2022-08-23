@@ -2,16 +2,19 @@ package com.ello.gelin.ui.moment.list
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ello.gelin.R
 import com.ello.gelin.databinding.ItemMomentImageBinding
 import com.ello.gelin.databinding.ItemMomentVideoBinding
+import com.ello.gelin.ui.imagePreview.ImagePreviewActivity
 import com.ello.gelin.ui.moment.detail.MomentDetailActivity
 import com.shop.base.ext.ImageOptions
 import com.shop.base.ext.clickAnim
@@ -90,6 +93,7 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
         fun bind(moment: Moment) {
             vb.ivAvatar.loadImage(url = moment.headImage)
             vb.tvTitle.text = moment.content?.text
+            setIsRecyclable(false)
             vb.tvDescription.text = "${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
             vb.rvImages.adapter = object : BaseQuickAdapter<Moment.Resource, BaseViewHolder>(
                 R.layout.item_moment_single_image,
@@ -98,6 +102,10 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
                 override fun convert(holder: BaseViewHolder, item: Moment.Resource) {
                     holder.getView<ImageView>(R.id.imageView)
                         .loadImage(context = context, url = item.url)
+                }
+            }.apply {
+                setOnItemClickListener { adapter, view, position ->
+                    ImagePreviewActivity.start(context, data, position)
                 }
             }
         }
@@ -111,7 +119,9 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
             vb.tvTitle.text = moment.content?.text
             vb.tvDescription.text = "${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
             vb.ivCover.loadImage(url = resource.coverImg)
-            vb.ivPlay.clickAnim { MomentDetailActivity.start(context, moment) }
+            listOf(vb.ivCover, vb.ivPlay).forEach {
+                it.clickAnim { MomentDetailActivity.start(context, moment) }
+            }
         }
     }
 
