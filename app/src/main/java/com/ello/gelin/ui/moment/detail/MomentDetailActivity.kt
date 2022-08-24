@@ -48,7 +48,7 @@ class MomentDetailActivity :
     override fun init(savedInstanceState: Bundle?) {
         vb.ivAvatar.loadImage(activity = this, url = moment?.headImage)
         vb.tvTitle.text = moment?.content?.text
-        vb.tvDescription.text = "${moment?.className} | ${moment?.typeStr} | ${moment?.timeDiff}"
+        vb.tvDescription.text = "${moment?.displayName} | ${moment?.className} | ${moment?.typeStr} | ${moment?.timeDiff}"
 
 
         //初始化不打开外部的旋转

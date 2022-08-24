@@ -53,6 +53,17 @@ class MainActivity : BaseDbActivity<BaseViewModel, ActivityMainBinding>(R.layout
         vb.rg.check(vb.rg.getChildAt(0).id)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("currentIndex", vb.viewPager.currentItem)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        vb.rg.check(vb.rg.getChildAt(savedInstanceState.getInt("currentIndex", 0)).id)
+
+    }
+
 
     var lastBackTime = 0L
     override fun onBackPressed() {

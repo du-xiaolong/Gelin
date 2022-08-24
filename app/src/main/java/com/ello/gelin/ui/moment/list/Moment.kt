@@ -21,7 +21,7 @@ data class Moment(
     val typeStr: String?,
     val resource: List<Resource>,
     val timeDiff: String?,
-    val createdAt: String?
+    val createdAt: String?,
 ) : Parcelable {
 
     val dateStr: String

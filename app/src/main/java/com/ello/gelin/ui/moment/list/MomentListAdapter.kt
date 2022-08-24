@@ -31,7 +31,6 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
     var name: String? = ""
 
     companion object {
-        const val PAYLOAD_UPDATE_SINGER_FOLLOW_STATE = "payload_update_singer_follow_state"
 
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Moment>() {
             override fun areItemsTheSame(oldItem: Moment, newItem: Moment): Boolean {
@@ -94,7 +93,7 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
             vb.ivAvatar.loadImage(url = moment.headImage)
             vb.tvTitle.text = moment.content?.text
             setIsRecyclable(false)
-            vb.tvDescription.text = "${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
+            vb.tvDescription.text = "${moment.displayName} | ${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
             vb.rvImages.adapter = object : BaseQuickAdapter<Moment.Resource, BaseViewHolder>(
                 R.layout.item_moment_single_image,
                 moment.resource.toMutableList()
@@ -117,7 +116,7 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
             val resource = moment.resource.firstOrNull() ?: return
             vb.ivAvatar.loadImage(url = moment.headImage, imageOptions = ImageOptions())
             vb.tvTitle.text = moment.content?.text
-            vb.tvDescription.text = "${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
+            vb.tvDescription.text = "${moment.displayName} | ${moment.className} | ${moment.typeStr} | ${moment.timeDiff}"
             vb.ivCover.loadImage(url = resource.coverImg)
             listOf(vb.ivCover, vb.ivPlay).forEach {
                 it.clickAnim { MomentDetailActivity.start(context, moment, name) }

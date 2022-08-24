@@ -1,4 +1,4 @@
-package com.ello.gelin.wxapi
+package com.pingo.scriptkill
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity
 

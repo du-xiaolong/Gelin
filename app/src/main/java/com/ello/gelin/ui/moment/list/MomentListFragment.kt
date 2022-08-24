@@ -8,6 +8,7 @@ import com.ello.gelin.databinding.FragmentMomentListBinding
 import com.shop.base.common.BaseDbFragment
 import com.shop.base.ext.Params
 import com.shop.base.ext.addDivider
+import com.shop.base.ext.isNetError
 import com.shop.base.ext.repeatOnStart
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -49,6 +50,12 @@ class MomentListFragment :
                 is LoadState.Loading -> {
                     if (!vb.srlList.isRefreshing) {
                         vb.srlList.isRefreshing = true
+                    }
+                }
+                is LoadState.Error -> {
+                    val error = (it.refresh as LoadState.Error).error
+                    if (error.isNetError()) {
+                        
                     }
                 }
                 else -> {
