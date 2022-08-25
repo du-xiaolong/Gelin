@@ -104,7 +104,7 @@ class MomentListAdapter @Inject constructor(@ActivityContext val context: Contex
                 }
             }.apply {
                 setOnItemClickListener { adapter, view, position ->
-                    ImagePreviewActivity.start(context, data, position)
+                    ImagePreviewActivity.startMoment(context, moment, position)
                 }
             }
         }

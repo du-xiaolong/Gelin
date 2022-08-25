@@ -20,10 +20,12 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.ello.gelin.R
 import com.ello.gelin.databinding.ActivityImagePreviewBinding
 import com.ello.gelin.ui.moment.list.Moment
+import com.ello.gelin.utils.UmengUtil
 import com.gyf.immersionbar.ktx.immersionBar
 import com.lxj.xpopup.photoview.PhotoView
 import com.shop.base.common.BaseDbActivity
 import com.shop.base.common.BaseViewModel
+import com.shop.base.ext.Params
 import com.shop.base.ext.click
 import com.shop.base.ext.toastCenter
 
@@ -33,33 +35,22 @@ import com.shop.base.ext.toastCenter
  * @date 2021/10/13
  */
 @SuppressLint("NotifyDataSetChanged, SetTextI18n")
-class ImagePreviewActivity : BaseDbActivity<BaseViewModel, ActivityImagePreviewBinding>(R.layout.activity_image_preview) {
+class ImagePreviewActivity :
+    BaseDbActivity<BaseViewModel, ActivityImagePreviewBinding>(R.layout.activity_image_preview) {
+
+    private val moment by Params<Moment>(KEY_MOMENT)
+    private val index by Params<Int>(KEY_ALBUM_INDEX)
 
     companion object {
-        const val KEY_ALBUM_MODELS = "key_album_models"
         const val KEY_ALBUM_INDEX = "key_album_index"
-        const val KEY_SHOW_MORE = "key_show_more"
+        const val KEY_MOMENT = "key_moment"
 
-        /**
-         * 启动器
-         * [albums] 照片列表
-         * [index] 当前索引
-         * [showMore] 是否显示顶部右侧更多按钮
-         */
-        fun start(
-            context: Context,
-            albums: List<Moment.Resource>,
-            index: Int = 0,
-            showMore: Boolean = false
-        ) {
+
+        fun startMoment(context: Context, moment: Moment, index: Int) {
             context.startActivity(Intent(context, ImagePreviewActivity::class.java).apply {
-                putParcelableArrayListExtra(KEY_ALBUM_MODELS, ArrayList(albums))
+                putExtra(KEY_MOMENT, moment)
                 putExtra(KEY_ALBUM_INDEX, index)
-                putExtra(KEY_SHOW_MORE, showMore)
             })
-            if (context is Activity) {
-                context.overridePendingTransition(R.anim.a5, R.anim.no_anim)
-            }
         }
     }
 
@@ -91,14 +82,13 @@ class ImagePreviewActivity : BaseDbActivity<BaseViewModel, ActivityImagePreviewB
 
 
     private fun initView() {
-        val albumModelList = intent.getParcelableArrayListExtra<Moment.Resource>(KEY_ALBUM_MODELS)
-        if (albumModelList.isNullOrEmpty()) {
+        val resource = moment?.resource
+        if (resource.isNullOrEmpty()) {
             "无相册".toastCenter()
             return
         }
-        vb.ivMore.isVisible = intent.getBooleanExtra(KEY_SHOW_MORE, false)
 
-        vb.viewPager.adapter = pagerAdapter.apply { setList(albumModelList) }
+        vb.viewPager.adapter = pagerAdapter.apply { setList(resource) }
 
         vb.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -111,13 +101,14 @@ class ImagePreviewActivity : BaseDbActivity<BaseViewModel, ActivityImagePreviewB
 
         vb.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
-        vb.recyclerView.adapter = recyclerViewAdapter.apply { setList(albumModelList) }
+        vb.recyclerView.adapter = recyclerViewAdapter.apply { setList(resource) }
 
         currentPage = intent.getIntExtra(KEY_ALBUM_INDEX, 0)
         vb.viewPager.setCurrentItem(currentPage, false)
 
         vb.ivClose.click { onBackPressed() }
         vb.ivMore.click { onMoreClicked() }
+
 
     }
 
@@ -180,6 +171,16 @@ class ImagePreviewActivity : BaseDbActivity<BaseViewModel, ActivityImagePreviewB
 
     //点击更多
     private fun onMoreClicked() {
+        //分享
+        moment?:return
+        val url = moment?.resource?.get(vb.viewPager.currentItem)?.url?:return
+
+        UmengUtil.shareImageToWechat(
+            this,
+            moment!!.content?.text,
+            "",
+            url
+        )
 
     }
 
