@@ -54,4 +54,19 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/main</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="splashScreenIconSize">24dp</item>
+        <item name="windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+        <item name="postSplashScreenTheme">@style/Theme.Gelin</item>
+
+        <!--        加上下面这两句，否则在Android12系统，设置了黑白模式，actionBar会出现-->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!--        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/ic_news</item>-->
+    </style>
+
 </resources>
