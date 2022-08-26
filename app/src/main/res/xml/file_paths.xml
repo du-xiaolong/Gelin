@@ -16,4 +16,14 @@
         name="share_files"
         path="." />
 
+    <files-path name="files-path" path="/."/>
+    <cache-path name="cache-path" path="/."/>
+    <external-path name="external-path" path="/."/>
+    <external-files-path name="external-files-path" path="/."/>
+    <external-cache-path name="external-cache-path" path="/."/>
+    <external-path path="Android/data/com/yinjiuyy/music/" name="files_root" />
+    <external-path path="." name="external_storage_root" />
+    <!-- QQ 官方分享SDK 共享路径 -->
+    <root-path name="opensdk_root" path=""/>
+    <external-files-path name="opensdk_external" path="Images/tmp"/>
 </paths>

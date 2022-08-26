@@ -1,9 +1,13 @@
 package com.ello.gelin.utils
 
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.LogUtils
 import com.ello.gelin.BuildConfig
+import com.shop.base.ext.lllog
 import com.shop.base.ext.toast
 import com.umeng.commonsdk.UMConfigure
 import com.umeng.socialize.PlatformConfig
@@ -14,6 +18,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA
 import com.umeng.socialize.media.UMImage
 import com.umeng.socialize.media.UMVideo
 import com.umeng.socialize.media.UMWeb
+import com.umeng.socialize.shareboard.ShareBoardConfig
+import java.io.File
+
 
 /**
  * @author dxl
@@ -31,7 +38,7 @@ object UmengUtil {
 
         //微信
         PlatformConfig.setWeixin(WX_APP_KEY, WX_APP_SECRET)
-        PlatformConfig.setWXFileProvider("${BuildConfig.APPLICATION_ID}.fileProvider")
+        PlatformConfig.setWXFileProvider("${BuildConfig.APPLICATION_ID}.provider")
 
     }
 
@@ -90,40 +97,98 @@ object UmengUtil {
     }
 
 
-    fun shareImageToWechat(activity: Activity,title: String?,desc: String?,
-                           url: String?, cb: ShareCallback? = null,) {
-        if (!checkInstall(activity, SHARE_MEDIA.WEIXIN)) {
-            cb?.onError(Throwable("未安装该应用"))
-            "未安装该应用".toast()
-            return
-        }
-        val umImage = UMImage(activity, url)
-        umImage.title = title
-        umImage.description = desc
-        ShareAction(activity)
-            .setPlatform(SHARE_MEDIA.WEIXIN)
-            .withMedia(umImage)
-            .setCallback(InnerShareCallback(cb = cb))
-            .share()
+
+    fun shareImageToWechat(
+        activity: Activity, title: String?, desc: String?,
+        url: String?, cb: ShareCallback? = null,
+    ) {
+
+
+
+
+
+        DownloadUtils.download(url, File(activity.externalCacheDir, "1.jpg"), object :DownloadUtils.DownloadListener{
+            override fun onResult(result: Result<File>) {
+                lllog("下载图片：$result")
+                if (result.isSuccess) {
+                    val intent = Intent()
+                    val componentName = ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI")
+                    intent.component = componentName
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    intent.action = Intent.ACTION_SEND
+                    intent.type = "image/*";
+                    val file = result.getOrThrow()
+                    val uri = FileProvider.getUriForFile(
+                        activity,
+                        activity.packageName + ".provider",
+                        file
+                    )
+
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    activity.startActivity(Intent.createChooser(intent, "发送到"))
+                }
+            }
+            override fun onProgress(progress: Int) {
+                lllog("下载图片进度：$progress")
+            }
+        })
+
+//        val umImage = UMImage(activity, "https://file.1d1d100.com/2022/8/26/6af340916bd54aca857c55ff99c03852.jpeg")
+//
+//        ShareAction(activity)
+//            .setPlatform(SHARE_MEDIA.WEIXIN)
+//            .withMedia(UMImage(activity, "https://file.1d1d100.com/2022/8/26/6af340916bd54aca857c55ff99c03852.jpeg"))
+//            .share()
     }
 
 
-    fun shareVideoToWechat(activity: Activity,title: String?,desc: String?,
-                           url: String?, thumbUrl: String?, cb: ShareCallback? = null,) {
+    fun shareVideoToWechat(
+        activity: Activity, title: String?, desc: String?,
+        url: String?, thumbUrl: String?, cb: ShareCallback? = null,
+    ) {
         if (!checkInstall(activity, SHARE_MEDIA.WEIXIN)) {
             cb?.onError(Throwable("未安装该应用"))
             "未安装该应用".toast()
             return
         }
-        val umImage = UMVideo(url)
-        umImage.setThumb(UMImage(activity, thumbUrl))
-        umImage.title = title
-        umImage.description = desc
-        ShareAction(activity)
-            .setPlatform(SHARE_MEDIA.WEIXIN)
-            .withMedia(umImage)
-            .setCallback(InnerShareCallback(cb = cb))
-            .share()
+        DownloadUtils.download(url, File(activity.externalCacheDir, "1.mp4"), object :DownloadUtils.DownloadListener{
+            override fun onResult(result: Result<File>) {
+                lllog("下载图片：$result")
+                if (result.isSuccess) {
+                    val intent = Intent()
+                    val componentName = ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI")
+                    intent.component = componentName
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    intent.action = Intent.ACTION_SEND
+                    intent.type = "video/*"
+                    val file = result.getOrThrow()
+                    val uri = FileProvider.getUriForFile(
+                        activity,
+                        activity.packageName + ".provider",
+                        file
+                    )
+
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    activity.startActivity(Intent.createChooser(intent, "发送到"))
+                }
+            }
+            override fun onProgress(progress: Int) {
+                lllog("下载图片进度：$progress")
+            }
+        })
+
+
+
+//        val umImage = UMVideo(url)
+//        umImage.setThumb(UMImage(activity, thumbUrl))
+//        umImage.title = title
+//        umImage.description = desc
+//        ShareAction(activity)
+//            .setPlatform(SHARE_MEDIA.WEIXIN)
+//            .withMedia(umImage)
+//            .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+//            .setCallback(InnerShareCallback(cb = cb))
+//            .open()
     }
 
 
